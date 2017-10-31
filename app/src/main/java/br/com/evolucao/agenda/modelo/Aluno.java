@@ -12,6 +12,7 @@ public class Aluno {
     private String email;
     private Double nota;
 
+    /* inserir getters e setters com o control alt insert */
     public long getId() {
         return id;
     }
@@ -58,5 +59,10 @@ public class Aluno {
 
     public void setNota(Double nota) {
         this.nota = nota;
+    }
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getNome();
     }
 }

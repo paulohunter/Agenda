@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
+
+import br.com.evolucao.agenda.dao.AlunoDAO;
+import br.com.evolucao.agenda.modelo.Aluno;
+
 public class ListaAlunosActivity extends AppCompatActivity {
 
     @Override
@@ -15,11 +20,30 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_lista_alunos);
 
-        String [] alunos = {"Daniel","Ronaldo", "Wanderson","Jeferson", "Felipe","Ronaldo", "Jeferson", "Felipe","Ronaldo", "Jeferson", "Felipe","Ronaldo", "Jeferson", "Felipe"};
-        ListView listaAlunos = (ListView) findViewById(R.id.Lista_alunos); /*Chamando list view do xml*/
+        //conexao com banco de dados
+        //faz uma busca no banco para trazer alunos
+        // popular o arry de strings
+        //fechar conexao
 
-        ArrayAdapter<String> adapter = new ArrayAdapter <String> (this, android.R.layout.simple_list_item_1, alunos);
+        //----------------
+        //Instanciar o DAO para conexao banco de dados
+
+        AlunoDAO dao = new AlunoDAO(this);
+        List<Aluno> alunos = dao.buscaAlunos();
+        dao.close();
+
+        ListView listaAlunos = (ListView) findViewById(R.id.Lista_alunos); /*Chamando list view do xml*/
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter <Aluno> (this, android.R.layout.simple_list_item_1, alunos);
         listaAlunos.setAdapter(adapter);
+
+
+
+
+
+        // TESTE PARA EBIBIR ALUNOS SEM BANCO -- String [] alunos = {"Daniel","Ronaldo", "Wanderson","Jeferson", "Felipe","Ronaldo", "Jeferson", "Felipe","Ronaldo", "Jeferson", "Felipe","Ronaldo", "Jeferson", "Felipe"};
+       // ListView listaAlunos = (ListView) findViewById(R.id.Lista_alunos); /*Chamando list view do xml*/
+      //  ArrayAdapter<String> adapter = new ArrayAdapter <String> (this, android.R.layout.simple_list_item_1, alunos);
+      //  listaAlunos.setAdapter(adapter);
 
         //definindo botao para navegar ate o formulario
         Button novoAluno = (Button) findViewById(R.id.novo_aluno);

@@ -11,6 +11,8 @@ import br.com.evolucao.agenda.modelo.Aluno;
 
 public class FormularioHelper {
 
+    /* pra fazer o findviewbyid tem que fazer primeiro a referencia aqui*/
+
     private final EditText campoNome;
     private final EditText campoCurso;
     private final EditText campoTelefone;

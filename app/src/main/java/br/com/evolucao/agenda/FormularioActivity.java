@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import br.com.evolucao.agenda.dao.AlunoDAO;
 import br.com.evolucao.agenda.modelo.Aluno;
 
 public class FormularioActivity extends AppCompatActivity {
@@ -50,10 +51,27 @@ public class FormularioActivity extends AppCompatActivity {
 
 
                 Aluno aluno = helper.pegaAluno();
+                //inserir no banco
+                AlunoDAO dao = new AlunoDAO(this);
+                //criar metodo (aquando da o alt enter escreveer o inset no aluno dao
+                dao.insere(aluno);
+                //fechar conexao
+                dao.close();
+
+
                 Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " Salvo!", Toast.LENGTH_LONG).show();
 
 
-                /* EditText campoNome = (EditText) findViewById(R.id.formulario_nome);
+
+
+
+                //conexao com o banco
+                //faz uma query para salvar o aluno que pega do formulário
+                //fecha o banco
+                /*
+                 foi criado a classe formulário Helper
+
+                EditText campoNome = (EditText) findViewById(R.id.formulario_nome);
                 String nome = campoNome.getText().toString();
 
                 EditText campoCurso = (EditText) findViewById(R.id.formulario_curso);
