@@ -27,7 +27,18 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_lista_alunos);
         listaAlunos = (ListView) findViewById(R.id.Lista_alunos); /*Chamando list view do xml*/
-        carregaLista();
+
+        //Para editar cadastro
+        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> lista, View item, int position, long id) {
+                Aluno aluno = (Aluno) listaAlunos.getItemAtPosition(position);
+                Toast.makeText(ListaAlunosActivity.this, "Aluno " + aluno.getNome() + " clicado", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
 
         //conexao com banco de dados
         //faz uma busca no banco para trazer alunos
@@ -45,6 +56,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         //  listaAlunos.setAdapter(adapter);
 
         //definindo botao para navegar ate o formulario
+
         Button novoAluno = (Button) findViewById(R.id.novo_aluno);
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
