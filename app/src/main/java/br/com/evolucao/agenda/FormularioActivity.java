@@ -25,6 +25,16 @@ public class FormularioActivity extends AppCompatActivity {
 
         helper = new FormularioHelper(this);
 
+        //criando intent pra abrir o formulário
+        Intent intent = getIntent();
+        Aluno aluno = (Aluno) intent.getSerializableExtra("aluno");
+        if (aluno !=null) {
+            helper.preencheFormulario(aluno);
+        }
+
+
+        helper = new FormularioHelper(this);
+
             /*Button botaoSalvar = (Button) findViewById(R.id.formulario_salvar);
             botaoSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,17 +63,16 @@ public class FormularioActivity extends AppCompatActivity {
                 Aluno aluno = helper.pegaAluno();
                 //inserir no banco
                 AlunoDAO dao = new AlunoDAO(this);
-                //criar metodo (aquando da o alt enter escreveer o inset no aluno dao
-                dao.insere(aluno);
+                //condicao para se ele tiver id, editar, se nao, adicionar um novo
+                if (aluno.getId() != null) {
+                    dao.altera(aluno);
+                } else {
+                    //criar metodo (aquando da o alt enter escreveer o inset no aluno dao
+                    dao.insere(aluno);
+                }
                 //fechar conexao
                 dao.close();
-
-
-                Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " Salvo!", Toast.LENGTH_LONG).show();
-
-
-
-
+            Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " Salvo!", Toast.LENGTH_LONG).show();
 
                 //conexao com o banco
                 //faz uma query para salvar o aluno que pega do formulário
